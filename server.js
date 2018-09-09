@@ -7,11 +7,15 @@ var serveStatic = require('serve-static');
 var app = new express();
 app.use(serveStatic(__dirname));
 app.use(function(req, res) {
-    // if (req.path.indexOf('/api') > -1) {
-    //  console.log('api');
-    // } else {
+    if (req.path.indexOf('/rest/v1.0') > -1) {
+        res.json([{ 
+            id: 'mysql',name:'mysql' 
+        },{
+            id: 'oracle',name:'oracle' 
+        }]);
+    } else {
     res.sendFile(__dirname + '/index.html');
-    // }
+    }
 });
 // app.get("/", function(req, res) {
 //     //首页的页面名字

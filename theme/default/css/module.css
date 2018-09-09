@@ -1,3 +1,13 @@
 .myFont {
   color: red;
 }
+
+.myFontImg{
+  background-image: url('../image/photo.jpg');
+  height:500px;
+  max-width:500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  background-color: coral;
+}

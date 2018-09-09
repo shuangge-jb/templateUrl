@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const staticPath = process.env.NODE_ENV === "production" ? "static/ddm/" : "";
 
 module.exports = {
   htmlLoader: {
@@ -21,13 +22,40 @@ module.exports = {
       "css-loader"
     ]
   },
+  urlLoader: {
+    test: /\.(png|jpg|gif)$/,
+    exclude: [/lib/, /node_modules/],
+    use: [
+      {
+        loader: "url-loader?limit=1024",
+        options: {
+          // fallback: 'file-loader'
+        }
+      },
+      // "file-loader"
+    ]
+  },
+  fileLoader: {
+    test: /\.(png|jpg|gif)$/,
+    exclude: [/lib/, /node_modules/],
+    use: {
+      loader: `file-loader?name=${staticPath}theme/[name].[hash:6].[ext]`
+    }
+  },
+  eslintLoader: {
+    enforce: "pre",
+    test: /\.js$/,
+    exclude: /node_modules/,
+    loader: "eslint-loader"
+  },
   babelLoader: {
     test: /\.js$/,
     exclude: [/lib/, /node_modules/],
     use: {
       loader: "babel-loader",
       options: {
-        presets: ["babel-preset-env"]
+        presets: ["babel-preset-env"],
+        plugins: ["dynamic-import-webpack"]
       }
     }
     /* replaceTemplateUrl: {

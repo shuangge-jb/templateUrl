@@ -1,10 +1,13 @@
 define([], function() {
-    function httpService() {
-        this.get = function() {
-            return new Promise((resolve, reject) => {
-                resolve('get response');
-            });
-        }
-    }
+    var httpService =['$http',function($http) {
+        this.getOrders = function() {
+            
+            return $http.get('/rest/v1.0/orders');
+        };
+        this.getInstances = function() {
+            
+            return $http.get('/rest/v1.0/instances');
+        };
+    }];
     return angular.module('framework').service('camel', httpService);
 });

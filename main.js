@@ -6,9 +6,10 @@ function getLang() {
 if (!window.urlParams) {
   window.urlParams = getLang();
 }
+const DDM_PATH = process.env.NODE_ENV === "development" ? "./" : "./";
 window.require.config({
   baseUrl: "./",
-  i18n: "./i18n" + window.urlParams.lang
+  i18n: DDM_PATH + "i18n/" + window.urlParams.lang
 });
 // require(['src/app/router/routeConfig',
 //         'src/app/controller/instanceDatabaseCtrl',
@@ -20,4 +21,5 @@ window.require.config({
 //         angular.bootstrap(document, [router.name]);
 //     });
 
+// require('./ddm_main');
 // window.require(['businessAll']);

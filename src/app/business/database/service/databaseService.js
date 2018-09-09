@@ -4,4 +4,4 @@ function databaseService() {
     };
     return this;
 }
-angular.module('myApp').service('databaseService', databaseService);
+angular.module('myApp').tinyService('databaseService', databaseService);

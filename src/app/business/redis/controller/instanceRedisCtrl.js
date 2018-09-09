@@ -1,9 +1,10 @@
 define(["fixtures/drdsFixture"], function() {
   function instanceRedisCtrl($scope, camel) {
     $scope.redis = "redis";
-    console.log(camel.get());
+    // console.log('camel get orders:',camel.getOrders());
+    console.log('camel get instaces:',camel.getInstances());
   }
   angular
     .module("myApp")
-    .controller("instanceRedisCtrl", ['$scope','camel',instanceRedisCtrl]);
+    .tinyController("instanceRedisCtrl", ['$scope','camel',instanceRedisCtrl]);
 });
