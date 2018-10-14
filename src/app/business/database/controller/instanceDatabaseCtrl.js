@@ -1,7 +1,7 @@
 define(["src/app/business/database/config/config"], function(config) {
   function instanceDatabaseCtrl($scope, i18n, databaseService) {
     $scope.rds = "rds";
-    console.log("databaseService", databaseService.getName());
+    console.log("getName", databaseService.getName());
     console.log(i18n.RDS);
   }
   angular

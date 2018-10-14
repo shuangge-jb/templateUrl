@@ -22,17 +22,17 @@ export default function myApp(i18n) {
         controller: "instanceDatabaseCtrl",
         resolve: {
           lazyLoad: function() {
-            return new Promise((resolve, reject) => {
-              return require.ensure(
-                [],
-                require => {
-                  resolve(require("app/business/database/database"));
-                },
-                err => reject(err), 
-                "database"
-              );
-            });
-            // return System.import( "app/business/database/database"/*webpackChunkName:"database"*/);
+            // return new Promise((resolve, reject) => {
+            //   return require.ensure(
+            //     [],
+            //     require => {
+            //       resolve(require("app/business/database/database"));
+            //     },
+            //     err => reject(err), 
+            //     "database"
+            //   );
+            // });
+            return import(/* webpackChunkName: "database" */ "app/business/database/database");
           }
         }
       })

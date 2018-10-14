@@ -10,10 +10,9 @@ Promise.all([
     window.urlParams && window.urlParams.lang ? window.urlParams.lang : "zh-cn"
   )
 ]).then(array => {
-  const fr=array[0];
-  const i18n=array[1];
+  const fr = array[0];
+  const i18n = array[1];
   const bu = businessModule.default(i18n);
-      businessCtrl.default();
-  angular.bootstrap(window.document, [fr,bu].map(item => item.name));
+  businessCtrl.default();
+  angular.bootstrap(window.document, [fr, bu].map(item => item.name));
 });
-

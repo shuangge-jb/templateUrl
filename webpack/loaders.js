@@ -1,5 +1,4 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const staticPath = process.env.NODE_ENV === "production" ? "static/ddm/" : "";
 
 module.exports = {
   htmlLoader: {
@@ -39,7 +38,7 @@ module.exports = {
     test: /\.(png|jpg|gif)$/,
     exclude: [/lib/, /node_modules/],
     use: {
-      loader: `file-loader?name=${staticPath}theme/[name].[hash:6].[ext]`
+      loader: `file-loader?name=theme/[name].[hash:6].[ext]`
     }
   },
   eslintLoader: {

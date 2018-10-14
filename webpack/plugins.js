@@ -6,9 +6,9 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const StringReplacePlugin = require("string-replace-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
-  const staticPath = process.env.NODE_ENV === "production" ? "static/ddm/" : "";
 const cleanConfig = {
   root: path.resolve(__dirname, "../"),
   // exclude: ['shared.js'],
@@ -16,6 +16,7 @@ const cleanConfig = {
   dry: false
 };
 const isMock = process.env.IS_MOCK === "true";
+const isBundleAnalyzer = process.env.IS_BUNDLE_ANALYZER === "true";
 
 const cleanWebpackPlugin = new CleanWebpackPlugin(["./build"], cleanConfig);
 const htmlWebpackPlugin = new HtmlWebpackPlugin({
@@ -30,11 +31,23 @@ const copyWebpackPlugin = new CopyWebpackPlugin([
 const miniCssExtractPlugin = new MiniCssExtractPlugin({
   // Options similar to the same options in webpackOptions.output
   // both options are optional
-  filename: `${staticPath}module.[hash:8].css`,
+  filename: `module.[hash:8].css`,
   chunkFilename: "[id].css"
 });
+const speedMeasurePlugin = new SpeedMeasurePlugin();
 const definePlugin = new webpack.DefinePlugin({
   "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
+});
+const uglifyJsPlugin = new UglifyJsPlugin({
+  sourceMap: true,
+  cache: false,
+  parallel: false,
+  uglifyOptions: {
+    mangle: false,
+    output:{
+      // comments :true
+    }
+  }
 });
 const hotModuleReplacementPlugin = new webpack.HotModuleReplacementPlugin({});
 const basePlugins = [
@@ -45,12 +58,13 @@ const basePlugins = [
   definePlugin
 ];
 const devPlugins = [hotModuleReplacementPlugin];
-console.log("is mock:-------------", isMock);
-if (isMock) {
+if (isBundleAnalyzer) {
   basePlugins.push(new BundleAnalyzerPlugin());
 }
 module.exports = {
-  basePlugins: basePlugins,
-  devPlugins: devPlugins,
+  uglifyJsPlugin,
+  speedMeasurePlugin,
+  basePlugins,
+  devPlugins,
   prodPlugins: []
 };
