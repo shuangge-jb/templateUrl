@@ -1,18 +1,14 @@
-const framework = require("./framework");
+import framework from "./framework";
 const businessModule = require("./index").default;
-const businessCtrl = require("./businessAll.build");
-const getI18nPromise = require("./i18n").default;
+import businessCtrl from "./businessAll.build";
+import getI18nPromise from "./i18n/index";
 
-const data = {};
-Promise.all([
-  framework.default(),
-  getI18nPromise(
-    window.urlParams && window.urlParams.lang ? window.urlParams.lang : "zh-cn"
-  )
-]).then(array => {
-  const fr = array[0];
-  const i18n = array[1];
+import toggle from "./toggle";
+window.GLOBAL_SWITCH = toggle;
+
+Promise.all([framework(), getI18nPromise(toggle.scene)]).then(array => {
+  const [fr, i18n] = array;
   const bu = businessModule.default(i18n);
-  businessCtrl.default();
+  businessCtrl();
   angular.bootstrap(window.document, [fr, bu].map(item => item.name));
 });

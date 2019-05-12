@@ -1,4 +1,4 @@
-var lazy = angular.module("lazy", ["ui.router"]);
+const lazy = angular.module("lazy", ["ui.router"]);
 lazy.makeLazy = function(module) {
   module.config(function(
     $controllerProvider,

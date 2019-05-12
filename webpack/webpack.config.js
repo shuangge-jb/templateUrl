@@ -35,7 +35,8 @@ const config = {
     path: path.resolve(__dirname, "../build"),
     filename: "[name].[hash:8].js",
     chunkFilename: `[name].[chunkhash:6].js`,
-    publicPath: "./"
+    publicPath: "./",
+    // library:'[name]_[hash]'
   },
   resolve: {
     alias: {
@@ -62,7 +63,8 @@ const config = {
       loaders.fileLoader,
       loaders.urlLoader,
       loaders.eslintLoader,
-      loaders.babelLoader
+      loaders.babelLoader,
+      // loaders.lessLoader
     ]
   },
   optimization: {
